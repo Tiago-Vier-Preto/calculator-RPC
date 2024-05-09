@@ -70,3 +70,36 @@ def test_multiply(calculator_client):
 
     # then
     assert result.p == expected
+
+def test_greatest(calculator_client):
+    from calculator_pb2 import GreatestRequest
+
+    # given
+    a = 256.5
+    b = 128.8
+    c = 512.0
+
+    expected = max(a, b, c)
+
+    # when
+    result = calculator_client.Greatest(GreatestRequest(a=a, b=b, c=c))
+
+    # then
+    assert result.g == expected
+
+def test_divide(calculator_client):
+    from calculator_pb2 import DivRequest
+
+    # given
+    a = 48
+    b = 7
+
+    expected_q = int(a / b)
+    expected_r = a % b
+
+    # when
+    result = calculator_client.Div(DivRequest(a=a, b=b))
+
+    # then
+    assert result.q == expected_q
+    assert result.r == expected_r
